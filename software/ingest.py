@@ -1,3 +1,15 @@
+import pymysql
+import pymysql.cursors
+
+try:
+    connection = pymysql.connect(user="root", password="password",
+                            host="127.0.0.1",
+                            database="IMPACT")
+    cursor = connection.cursor()
+except pymysql.InternalError as error:
+    print("Connection Failed")
+    print(error)
+
 with open("RightEarFB.txt", "r") as f:
     curr_line = f.readline()
     count = 10
@@ -40,6 +52,14 @@ with open("RightEarFB.txt", "r") as f:
             temp["z_accel_two"] = (int(curr_line)*2/2**16)
         else:
             ans.append(temp)
+
+            insert = ("INSERT INTO `sensor_raw` (x_accel_one, y_accel_one, z_accel_one, x_gyro, y_gyro, z_gyro, temperature, x_accel_two, y_accel_two, z_accel_two) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+            try:
+                cursor.execute(insert, (temp["x_accel_one"], temp["y_accel_one"], temp["z_accel_one"], temp["x_gyro"], temp["y_gyro"], temp["z_gyro"], temp["temp"], temp["x_accel_two"], temp["y_accel_two"], temp["z_accel_two"]))
+                cursor.execute("COMMIT")
+            except pymysql.IntegrityError:
+                print("Error. Username must be unique")
+
             temp = {}
             count = 11
         count -= 1
