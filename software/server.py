@@ -29,14 +29,14 @@ colors = [
 @app.route('/')
 def main():
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT * FROM sensor_raw''')
+    cur.execute('''SELECT round(x_accel_one, 5) FROM sensor_raw''')
     rv = cur.fetchall()
     return str(rv)
 
 @app.route('/bar')
 def bar():
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT x_accel_one FROM sensor_raw''')
+    cur.execute('''SELECT round(x_accel_one, 5) FROM sensor_raw''')
     rv = cur.fetchall()
     bar_values=list(map(lambda x: float(x[0]), list(rv)))
     bar_labels=["" for _ in range(len(bar_values))]
@@ -45,11 +45,11 @@ def bar():
 @app.route('/line')
 def line():
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT x_accel_one FROM sensor_raw''')
+    cur.execute('''SELECT round(x_accel_one, 3) FROM sensor_raw''')
     rv = cur.fetchall()
     line_values=list(map(lambda x: float(x[0]), list(rv)))
     line_labels=["" for _ in range(len(line_values))]
-    return render_template('line_chart.html', title='X_Accel', max=max(line_values), min=min(line_values), labels=line_labels, values=line_values)
+    return render_template('line_chart.html', title='Current Head Data', max=max(line_values), min=min(line_values), labels=line_labels, values=line_values)
 
 if __name__ == '__main__':
     app.run(debug=True)

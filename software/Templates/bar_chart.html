@@ -19,7 +19,7 @@
           {% for item in labels %}
            "{{ item }}",
           {% endfor %}
-	],
+        ],
 
         datasets : [{
           fillColor: "rgba(151,187,205,0.2)",
@@ -29,10 +29,20 @@
             {% for item in values %}
                "{{ item }}",
               {% endfor %}
-	    ]
+	          ]
           }
         ]
       }
+
+      Chart.defaults.global.animationSteps = 50;
+      Chart.defaults.global.tooltipYPadding = 16;
+      Chart.defaults.global.tooltipCornerRadius = 0;
+      Chart.defaults.global.tooltipTitleFontStyle = "normal";
+      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+      Chart.defaults.global.animationEasing = "easeOutBounce";
+      Chart.defaults.global.responsive = true;
+      Chart.defaults.global.scaleLineColor = "black";
+      Chart.defaults.global.scaleFontSize = 16;
 
      // get bar chart canvas
      var mychart = document.getElementById("chart").getContext("2d");
