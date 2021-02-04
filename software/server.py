@@ -29,9 +29,9 @@ colors = [
 @app.route('/')
 def main():
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT round(x_accel_one, 5) FROM sensor_raw''')
+    cur.execute('''SELECT * FROM sensor_raw_one''')
     rv = cur.fetchall()
-    return str(rv)
+    return str(list(map(lambda x: float(x[12]), list(rv))))
 
 @app.route('/bar')
 def bar():
@@ -45,11 +45,22 @@ def bar():
 @app.route('/line')
 def line():
     cur = mysql.connection.cursor()
-    cur.execute('''SELECT round(x_accel_one, 3) FROM sensor_raw''')
+    cur.execute('''SELECT * FROM sensor_raw_one''')
     rv = cur.fetchall()
-    line_values=list(map(lambda x: float(x[0]), list(rv)))
-    line_labels=["" for _ in range(len(line_values))]
-    return render_template('line_chart.html', title='Current Head Data', max=max(line_values), min=min(line_values), labels=line_labels, values=line_values)
+    x_accel_one=list(map(lambda x: float(x[1]), list(rv)))
+    y_accel_one=list(map(lambda x: float(x[2]), list(rv)))
+    z_accel_one=list(map(lambda x: float(x[3]), list(rv)))
+    x_gyro=list(map(lambda x: float(x[4]), list(rv)))
+    y_gyro=list(map(lambda x: float(x[5]), list(rv)))
+    z_gyro=list(map(lambda x: float(x[6]), list(rv)))
+    x_accel_two=list(map(lambda x: float(x[8]), list(rv)))
+    y_accel_two=list(map(lambda x: float(x[9]), list(rv)))
+    z_accel_two=list(map(lambda x: float(x[10]), list(rv)))
+    timestamp=list(map(lambda x: float(x[11]), list(rv)))
+    x_angular_accel=list(map(lambda x: float(x[12]), list(rv)))
+    y_angular_accel=list(map(lambda x: float(x[13]), list(rv)))
+    z_angular_accel=list(map(lambda x: float(x[14]), list(rv)))
+    return render_template('line_chart.html', title='Current Head Data', labels=timestamp, values=[x_accel_one, y_accel_one, z_accel_one, x_gyro, y_gyro, z_gyro, x_accel_two, y_accel_two, z_accel_two, x_angular_accel, y_angular_accel, z_angular_accel])
 
 if __name__ == '__main__':
     app.run(debug=True)

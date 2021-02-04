@@ -4,302 +4,88 @@
     <meta charset="utf-8" />
     <title>{{ title }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/line_chart.css') }}">
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   </head>
 
   <body>
-    <div class="chartWrapper">
-      <div class="chartAreaWrapper">
-        <canvas id="chart" width="6000" height="400"></canvas>  
-      </div>
-      <canvas id="myChartAxis" height="400" width="0"></canvas>
-      <script>
-
-        // bar chart data
-        var barData = {
-          labels : [
-            {% for item in labels %}
-              "{{ item }}",
-            {% endfor %}
-          ],
-
-          datasets : [{
-            fillColor: "rgba(151,187,205,0)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            bezierCurve : false,
-            data : [
-              {% for item in values %}
-                {{ item }},
-              {% endfor %}
-            ]
-          }]     
-        }
-
-        Chart.defaults.global.animationSteps = 50;
-        Chart.defaults.global.tooltipYPadding = 16;
-        Chart.defaults.global.tooltipCornerRadius = 0;
-        Chart.defaults.global.tooltipTitleFontStyle = "normal";
-        Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
-        Chart.defaults.global.animation = false;
-        Chart.defaults.global.responsive = false;
-        Chart.defaults.global.scaleLineColor = "black";
-        Chart.defaults.global.scaleFontSize = 16;
-
-        // get bar chart canvas
-        var mychart = document.getElementById("chart").getContext("2d");
-
-        steps = 10
-        max = {{ max }}
-        min = {{ min }}
-        width = (Math.max(Math.abs(max), Math.abs(min))) / steps * 2
-        startValue = -5 * width
-        var LineChartDemo = new Chart(mychart).Line(barData, {
-          scaleOverride: true,
-          scaleSteps: steps,
-          scaleStepWidth: width,
-          scaleStartValue: startValue,
-          barShowStroke : true,
-          scaleShowLabels: true,
-          bezierCurve: false,
-        });
-
-        var horizontalLegend = document.getElementById("myChartAxis").getContext("2d");
-
-      </script>
-    </div>
-    <div class="chartWrapper">
-      <div class="chartAreaWrapper">
-        <canvas id="chart2" width="6000" height="400"></canvas>  
-      </div>
-      <canvas id="myChartAxis" height="400" width="0"></canvas>
-      <script>
-
-        // bar chart data
-        var barData = {
-          labels : [
-            {% for item in labels %}
-              "{{ item }}",
-            {% endfor %}
-          ],
-
-          datasets : [{
-            fillColor: "rgba(151,187,205,0)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            bezierCurve : false,
-            data : [
-              {% for item in values %}
-                {{ item }},
-              {% endfor %}
-            ]
-          }]
-        }
-
-        // get bar chart canvas
-        var mychart = document.getElementById("chart2").getContext("2d");
-
-        steps = 10
-        max = {{ max }}
-        min = {{ min }}
-        width = (Math.max(Math.abs(max), Math.abs(min))) / steps * 2
-        startValue = -5 * width
-        var LineChartDemo = new Chart(mychart).Line(barData, {
-          scaleOverride: true,
-          scaleSteps: steps,
-          scaleStepWidth: width,
-          scaleStartValue: startValue,
-          barShowStroke : true,
-          scaleShowLabels: true,
-          bezierCurve: false,
-        });
-
-        var horizontalLegend = document.getElementById("myChartAxis").getContext("2d");
-
-      </script>
-    </div>
-    <div class="chartWrapper">
-      <div class="chartAreaWrapper">
-        <canvas id="chart3" width="6000" height="400"></canvas>  
-      </div>
-      <canvas id="myChartAxis" height="400" width="0"></canvas>
-      <script>
-
-        // bar chart data
-        var barData = {
-          labels : [
-            {% for item in labels %}
-              "{{ item }}",
-            {% endfor %}
-          ],
-
-          datasets : [{
-            fillColor: "rgba(151,187,205,0)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            bezierCurve : false,
-            data : [
-              {% for item in values %}
-                {{ item }},
-              {% endfor %}
-            ]
-          }]
-        }
-
-        // get bar chart canvas
-        var mychart = document.getElementById("chart3").getContext("2d");
-
-        steps = 10
-        max = {{ max }}
-        min = {{ min }}
-        width = (Math.max(Math.abs(max), Math.abs(min))) / steps * 2
-        startValue = -5 * width
-        var LineChartDemo = new Chart(mychart).Line(barData, {
-          scaleOverride: true,
-          scaleSteps: steps,
-          scaleStepWidth: width,
-          scaleStartValue: startValue,
-          barShowStroke : true,
-          scaleShowLabels: true,
-          bezierCurve: false,
-        });
-
-        var horizontalLegend = document.getElementById("myChartAxis").getContext("2d");
-
-      </script>
-    </div>
-    <div class="chartWrapper">
-      <div class="chartAreaWrapper">
-        <canvas id="chart4" width="6000" height="400"></canvas>  
-      </div>
-      <canvas id="myChartAxis" height="400" width="0"></canvas>
-      <script>
-
-        // bar chart data
-        var barData = {
-          labels : [
-            {% for item in labels %}
-              "{{ item }}",
-            {% endfor %}
-          ],
-
-          datasets : [{
-            fillColor: "rgba(151,187,205,0)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            bezierCurve : false,
-            data : [
-              {% for item in values %}
-                {{ item }},
-              {% endfor %}
-            ]
-          }]
-        }
-        // get bar chart canvas
-        var mychart = document.getElementById("chart4").getContext("2d");
-
-        steps = 10
-        max = {{ max }}
-        min = {{ min }}
-        width = (Math.max(Math.abs(max), Math.abs(min))) / steps * 2
-        startValue = -5 * width
-        var LineChartDemo = new Chart(mychart).Line(barData, {
-          scaleOverride: true,
-          scaleSteps: steps,
-          scaleStepWidth: width,
-          scaleStartValue: startValue,
-          barShowStroke : true,
-          scaleShowLabels: true,
-          bezierCurve: false,
-        });
-
-        var horizontalLegend = document.getElementById("myChartAxis").getContext("2d");
-
-      </script>
-    </div>
-    <div class="chartWrapper">
-      <div class="chartAreaWrapper">
-        <canvas id="chart5" width="6000" height="400"></canvas>  
-      </div>
-      <canvas id="myChartAxis" height="400" width="0"></canvas>
-      <script>
-
-        // bar chart data
-        var barData = {
-          labels : [
-            {% for item in labels %}
-              "{{ item }}",
-            {% endfor %}
-          ],
-
-          datasets : [{
-            fillColor: "rgba(151,187,205,0)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            bezierCurve : false,
-            data : [
-              {% for item in values %}
-                {{ item }},
-              {% endfor %}
-            ]
-          }]
-        }
-
-        // get bar chart canvas
-        var mychart = document.getElementById("chart5").getContext("2d");
-
-        steps = 10
-        max = {{ max }}
-        min = {{ min }}
-        width = (Math.max(Math.abs(max), Math.abs(min))) / steps * 2
-        startValue = -5 * width
-        var LineChartDemo = new Chart(mychart).Line(barData, {
-          scaleOverride: true,
-          scaleSteps: steps,
-          scaleStepWidth: width,
-          scaleStartValue: startValue,
-          barShowStroke : true,
-          scaleShowLabels: true,
-          bezierCurve: false,
-        });
-
-        var horizontalLegend = document.getElementById("myChartAxis").getContext("2d");
-
-      </script>
-    </div>
+    <div class="container"></div>
     <script>
-      var scrollers = document.getElementsByClassName('chartAreaWrapper');
+      var container = document.querySelector('.container');
 
-      var scrollerDivs = Array.prototype.filter.call(scrollers, function(testElement) {
-        return testElement.nodeName === 'DIV';
-      });
+      Chart.defaults.global.animationSteps = 50;
+      Chart.defaults.global.tooltipYPadding = 16;
+      Chart.defaults.global.tooltipCornerRadius = 0;
+      Chart.defaults.global.tooltipTitleFontStyle = "normal";
+      Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+      Chart.defaults.global.animation = false;
+      Chart.defaults.global.responsive = false;
+      Chart.defaults.global.scaleLineColor = "black";
+      Chart.defaults.global.scaleFontSize = 16;
 
-      function scrollAll(scrollLeft) {
+      names=["x_accel_one", "y_accel_one", "z_accel_one", "x_gyro", "y_gyro", "z_gyro", "x_accel_two", "y_accel_two", "z_accel_two", "x_angular_accel", "y_angular_accel", "z_angular_accel"]
+
+      window.onload = function() {
+        {% for value in values %}
+          var chartWrapperDiv = document.createElement('div');
+          chartWrapperDiv.classList.add('chartWrapper');
+          container.appendChild(chartWrapperDiv)
+
+          var titleDiv = document.createElement('div');
+          titleDiv.classList.add('title');
+          titleDiv.innerHTML += names.shift();
+          chartWrapperDiv.appendChild(titleDiv)
+
+          var chartAreaWrapperDiv = document.createElement('div');
+          chartAreaWrapperDiv.classList.add('chartAreaWrapper');
+          chartWrapperDiv.appendChild(chartAreaWrapperDiv);
+
+          var canvas = document.createElement('canvas');
+          canvas.style.width = "6000px";
+          canvas.style.height = "400px";
+          chartAreaWrapperDiv.appendChild(canvas);
+
+          var ctx = canvas.getContext('2d');
+
+          var barData = {
+            labels : [
+              {% for item in labels %}
+                "{{ item }}",
+              {% endfor %}
+            ],
+
+            datasets : [{
+              data : [
+                {% for indivItem in value %}
+                  "{{ indivItem }}",
+                {% endfor %}
+              ]
+            }]     
+          }
+
+          new Chart(ctx, {type: "line", data: barData, options: {legend: {
+                    display: false
+                }}});
+        {% endfor %}
+
+
+        var scrollers = document.getElementsByClassName('chartAreaWrapper');
+
+        var scrollerDivs = Array.prototype.filter.call(scrollers, function(testElement) {
+          return testElement.nodeName === 'DIV';
+        });
+
+        function scrollAll(scrollLeft) {
+          scrollerDivs.forEach(function(element, index, array) {
+            element.scrollLeft = scrollLeft;
+          });
+        }
+
         scrollerDivs.forEach(function(element, index, array) {
-          element.scrollLeft = scrollLeft;
+          element.addEventListener('scroll', function(e) {
+            scrollAll(e.target.scrollLeft);
+          });
         });
       }
-
-      scrollerDivs.forEach(function(element, index, array) {
-        element.addEventListener('scroll', function(e) {
-          scrollAll(e.target.scrollLeft);
-        });
-      });
     </script>
   </body>
 </html>
